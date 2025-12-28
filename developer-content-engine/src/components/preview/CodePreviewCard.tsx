@@ -3,6 +3,14 @@ import { toPng } from "html-to-image";
 import { WindowDecorators } from "./WindowDecorators";
 import { getThemeStyles, VISUALIZER_THEMES } from "./ThemeLayer";
 import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-rust";
 import { cn } from "@/lib/utils";
 import { Download, Loader2 } from "lucide-react";
 
@@ -19,6 +27,19 @@ export function CodePreviewCard({ code, language, themeId, title }: CodePreviewC
 
     const theme = VISUALIZER_THEMES[themeId] || VISUALIZER_THEMES["vscode"];
     const themeStyles = getThemeStyles(themeId);
+
+    // Dynamic Syntax Highlighting
+    const syntaxStyles = `
+      .token.comment, .token.prolog, .token.doctype, .token.cdata { color: ${theme.tokens.comment}; }
+      .token.punctuation { color: ${theme.tokens.punctuation}; }
+      .token.namespace { opacity: .7; }
+      .token.string, .token.attr-value { color: ${theme.tokens.string}; }
+      .token.boolean, .token.number { color: ${theme.tokens.boolean}; }
+      .token.keyword, .token.tag { color: ${theme.tokens.keyword}; }
+      .token.class-name { color: ${theme.tokens.className}; }
+      .token.function { color: ${theme.tokens.function}; }
+      .token.operator, .token.entity, .token.url { color: ${theme.tokens.operator}; }
+    `;
 
     const handleDownload = async () => {
         if (!ref.current) return;
@@ -64,6 +85,7 @@ export function CodePreviewCard({ code, language, themeId, title }: CodePreviewC
                     background: theme.background
                 }}
             >
+                <style>{syntaxStyles}</style>
                 <WindowDecorators type={theme.decorations} title={title} />
 
                 <div

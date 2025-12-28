@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout } from "./components/layout/MainLayout";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
 import { DashboardPage } from "./pages/DashboardPage";
+import { LibraryPage } from "./pages/LibraryPage";
+import { TemplatesPage } from "./pages/TemplatesPage";
+import { SettingsPage } from "./pages/SettingsPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -14,9 +17,9 @@ function App() {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route index element={<DashboardPage />} />
-              <Route path="library" element={<div>Library Implementation Pending</div>} />
-              <Route path="templates" element={<div>Templates Implementation Pending</div>} />
-              <Route path="settings" element={<div>Settings Implementation Pending</div>} />
+              <Route path="library" element={<LibraryPage />} />
+              <Route path="templates" element={<TemplatesPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Routes>
         </ThemeProvider>
